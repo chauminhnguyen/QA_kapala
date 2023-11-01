@@ -4,14 +4,15 @@ import pandas as pd
 
 
 class Base_Pipeline:
-    def __init__(self, retrieval_model, qa_model, topk=5):
+    def __init__(self, retrieval_model, qa_model, corpus_path, topk=5):
         self.retrieval_model_name = retrieval_model
         self.qa_model_name = qa_model
+        self.corpus_path = corpus_path
         self.topk = topk
         self.build_models()
 
     def build_models(self):
-        self.retrieval_model = Cross_Encoder_Retrieval(self.retrieval_model_name)
+        self.retrieval_model = Cross_Encoder_Retrieval(self.retrieval_model_name, self.corpus_path)
         self.qa_model = Llama2_Vi(self.qa_model_name)
     
     def run(self, question, options):
@@ -24,7 +25,11 @@ class Base_Pipeline:
         df = pd.DataFrame(lst, columns=['prompt', 'context'])
         answer = self.qa_model.run_model(df)
 
+        res = []
         for option in options:
             if option in answer:
-                return option  
+                res.append(1)
+            else:
+                res.append(0)
+        return res  
         

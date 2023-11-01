@@ -1,5 +1,6 @@
 from sentence_transformers.cross_encoder import CrossEncoder
 import numpy as np
+from utils import Base_Preprocess
 
 
 class Cross_Encoder_Retrieval:
@@ -16,6 +17,7 @@ class Cross_Encoder_Retrieval:
 
     def build_model(self):
         self.model = CrossEncoder(self.model_path)
+        self.preprocess = Base_Preprocess(self.corpus_path)
 
     def build_paragraphs(self):
         self.paragraphs = []
