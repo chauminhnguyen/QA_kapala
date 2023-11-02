@@ -2,6 +2,8 @@ import numpy as np
 import torch
 import transformers
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from utils import clean_memory
+
 
 class Llama2_Vi:
     def __init__(self, model_name_or_path, **kwargs):
@@ -55,6 +57,8 @@ class Llama2_Vi:
         # outputs = []
         # for batch in inputs:
         inputs = '[[INST]] <<SYS>>' + inputs + '<</SYS>>'
+        clean_memory()
         ans = self.pipeline(inputs[0])[0]["generated_text"]
+        clean_memory()
         # outputs.append(ans)
         return ans

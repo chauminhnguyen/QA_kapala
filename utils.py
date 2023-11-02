@@ -3,7 +3,14 @@ from langchain.docstore.document import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from glob import glob
 import os
+import gc
+import ctypes
+import torch
 
+def clean_memory():
+    gc.collect()
+    ctypes.CDLL("libc.so.6").malloc_trim(0)
+    torch.cuda.empty_cache()
 
 class Base_Preprocess:
     def __init__(self, corpus_path):
