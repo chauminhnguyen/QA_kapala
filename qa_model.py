@@ -55,6 +55,6 @@ class Llama2_Vi:
         # outputs = []
         # for batch in inputs:
         inputs = '[[INST]] <<SYS>>' + inputs + '<</SYS>>'
-        ans = self.pipeline(input)[0]["generated_text"]
+        ans = self.pipeline(inputs)[0]["generated_text"]
         # outputs.append(ans)
         return ans

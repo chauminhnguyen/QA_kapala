@@ -2,6 +2,7 @@ import re
 from langchain.docstore.document import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from glob import glob
+import os
 
 
 class Base_Preprocess:
@@ -69,7 +70,7 @@ class Base_Preprocess:
         return text
 
     def run(self):
-        folder_path = glob(self.corpus_path)
+        folder_path = glob(os.path.join(self.corpus_path, '*'))
         data = []
         fname = []
         for idx, fpath in enumerate(folder_path):
@@ -91,7 +92,7 @@ class Base_Preprocess:
 
         for idx, text in enumerate(docs):
             doc = Document(page_content=self.clean_text(text.page_content), id=idx, metadata=text.metadata)
-            self.documents.append(doc)
+            self.documents.append(doc.page_content)
     
     def get_documents(self):
         return self.documents

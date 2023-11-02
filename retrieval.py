@@ -13,16 +13,16 @@ class Cross_Encoder_Retrieval:
         self.model_path = model_path
         self.corpus_path = corpus_path
         self.build_model()
-        self.build_paragraphs()
 
     def build_model(self):
-        self.model = CrossEncoder(self.model_path)
         self.preprocess = Base_Preprocess(self.corpus_path)
+        self.paragraphs = self.preprocess.get_documents()
+        self.model = CrossEncoder(self.model_path)
 
-    def build_paragraphs(self):
-        self.paragraphs = []
+    # def build_paragraphs(self):
+    #     self.paragraphs = []
 
-    def predict(self, query, convert_to_numpy=False, show_progress_bar=False):
+    def predict(self, query, convert_to_numpy=True, show_progress_bar=False):
         model_input = [[query, para] for para in self.paragraphs]
         pred_scores = self.model.predict(model_input, convert_to_numpy=convert_to_numpy, show_progress_bar=show_progress_bar)
         pred_scores_argsort = np.argsort(-pred_scores)
