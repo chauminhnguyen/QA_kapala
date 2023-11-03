@@ -21,12 +21,14 @@ class Llama2_Vi:
         model = AutoModelForCausalLM.from_pretrained(self.model_name_or_path,
                                              device_map="auto",
                                              trust_remote_code=False,
+                                             low_cpu_mem_usage=True,
+                                             torch_dtype=torch.float16,
                                              revision="main")
 
         # Load tokenizer
         tokenizer = AutoTokenizer.from_pretrained(
             self.model_name_or_path,
-            trust_remote_code=True
+            trust_remote_code=False
         )
 
         model.config.pretraining_tp = 1
