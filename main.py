@@ -7,7 +7,7 @@ def argparser():
     parser.add_argument('--data_path', type=str, default='public_test.csv')
     parser.add_argument('--corpus_path', type=str, default='./MEDICAL/corpus/')
     parser.add_argument('--retrieval_model_name', type=str, default='sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2')
-    parser.add_argument('--qa_model_name', type=str, default='bkai-foundation-models/vietnamese-llama2-7b-40GB')
+    parser.add_argument('--qa_model_name', type=str, default="TheBloke/vietnamese-llama2-7B-40GB-GPTQ")
     parser.add_argument('--topk', type=int, default=4)
     args = parser.parse_args()
     return args

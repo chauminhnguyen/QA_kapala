@@ -18,13 +18,10 @@ class Llama2_Vi:
         self.build_model()
 
     def build_model(self):
-        model = AutoModelForCausalLM.from_pretrained(
-                self.model_name_or_path,
-                device_map="auto",
-                low_cpu_mem_usage=True,
-                torch_dtype=torch.float16,
-                use_safetensors=True,
-            )
+        model = AutoModelForCausalLM.from_pretrained(self.model_name_or_path,
+                                             device_map="auto",
+                                             trust_remote_code=False,
+                                             revision="main")
 
         # Load tokenizer
         tokenizer = AutoTokenizer.from_pretrained(
