@@ -23,7 +23,6 @@ class Llama2_Vi:
                                              trust_remote_code=False,
                                              low_cpu_mem_usage=True,
                                              torch_dtype=torch.float16,
-                                             use_flash_attention_2=True,
                                              revision="main")
 
         # Load tokenizer
